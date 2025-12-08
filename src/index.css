@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* 1. Base Setup */
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: #1a1e23; /* The CodePen dark background */
+  color: #f3f4f6;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* 2. Bubble Container */
+.bubbles-container {
+  position: fixed; /* Sticks to the background */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; /* Puts it BEHIND everything else */
+  pointer-events: none; /* Allows clicking through bubbles */
+}
+
+/* 3. Individual Bubble Style */
+.bubble {
+  position: absolute;
+  bottom: -100px; /* Start below the screen */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  opacity: 0; /* Start invisible */
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* 4. Animations */
+.bubble.sway-left-to-right {
+  animation-name: float-up, sway-left-to-right;
+}
+
+.bubble.sway-right-to-left {
+  animation-name: float-up, sway-right-to-left;
+}
+
+@keyframes float-up {
+  0% {
+    bottom: -100px;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7; /* Fade in */
+  }
+  50% {
+    opacity: 0.4;
+  }
+  80% {
+    opacity: 0.2;
+  }
+  100% {
+    bottom: 100vh; /* Move to top of screen */
+    opacity: 0;
+  }
+}
+
+@keyframes sway-left-to-right {
+  0% { transform: translateX(-20px); }
+  50% { transform: translateX(20px); }
+  100% { transform: translateX(-20px); }
+}
+
+@keyframes sway-right-to-left {
+  0% { transform: translateX(20px); }
+  50% { transform: translateX(-20px); }
+  100% { transform: translateX(20px); }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
